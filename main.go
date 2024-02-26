@@ -170,9 +170,34 @@ func main() {
 
 	var v interface{} /** similar to object in java **/
 	v = "Hello"
-	v = 42
 	v = []int{1, 2, 3}
+	v = 42
 	fmt.Print(v)
+
+	strValue, ok := v.(string)
+	if ok {
+		fmt.Println(strValue)
+	}
+
+	if intValue, ok := v.(int); ok {
+		fmt.Println("v is an integer:", intValue)
+	} else if floatValue, ok := v.(float64); ok {
+		fmt.Println("v is an float:", floatValue)
+	} else if strVal, ok := v.(string); ok {
+		fmt.Println("v is an float:", strVal)
+	}
+
+	switch value := v.(type) {
+	case int:
+		fmt.Println("v is an integer:", value)
+	case float64:
+		fmt.Println("v is a float:", value)
+	case string:
+		fmt.Println("v is a string:", value)
+	default:
+		fmt.Println("v is of unknown type")
+	}
+
 }
 
 const HTTP_SUCESS = 200
