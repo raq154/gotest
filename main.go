@@ -1,12 +1,8 @@
 package main
 
 import (
-	"cards/mypackage"
 	"fmt"
 	"net/http"
-	"time"
-
-	"github.com/spf13/cobra"
 )
 
 var colors = map[string]string{
@@ -145,30 +141,32 @@ func main() {
 	// }
 	// log.Println("filecontents ", string(content))
 
-	var websitesToCheck = [...]string{"http://google.com", "http://facebook.com", "http://stackoverflow.com"}
+	// var websitesToCheck = [...]string{"http://google.com", "http://facebook.com", "http://stackoverflow.com"}
 
-	c := make(chan string)
-	sleepFunc := func() {
-		time.Sleep(time.Duration(time.Second))
-	}
+	// c := make(chan string)
+	// sleepFunc := func() {
+	// 	time.Sleep(time.Duration(time.Second))
+	// }
 
-	for _, website := range websitesToCheck {
-		go checkWebsite(website, c, sleepFunc)
-	}
+	// for _, website := range websitesToCheck {
+	// 	go checkWebsite(website, c, sleepFunc)
+	// }
 
-	for link := range c {
-		go checkWebsite(link, c, sleepFunc)
-	}
+	// for link := range c {
+	// 	go checkWebsite(link, c, sleepFunc)
+	// }
 
-	cmd := &cobra.Command{
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Hello, Modules!")
+	// cmd := &cobra.Command{
+	// 	Run: func(cmd *cobra.Command, args []string) {
+	// 		fmt.Println("Hello, Modules!")
 
-			mypackage.PrintHello()
-		},
-	}
-	cmd.Execute()
+	// 		mypackage.PrintHello()
+	// 	},
+	// }
+	// cmd.Execute()
 
+	size, status := niceFuncWithMultipleReturns()
+	fmt.Println(size, status)
 }
 
 const HTTP_SUCESS = 200
@@ -184,4 +182,8 @@ func checkWebsite(website string, c chan string, onComplete func()) {
 	}
 	onComplete()
 	c <- website
+}
+
+func niceFuncWithMultipleReturns() (size int64, status string) {
+	return 100, "Thank you for your purchase"
 }
