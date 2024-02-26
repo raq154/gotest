@@ -167,6 +167,12 @@ func main() {
 
 	size, status := niceFuncWithMultipleReturns()
 	fmt.Println(size, status)
+
+	var v interface{} /** similar to object in java **/
+	v = "Hello"
+	v = 42
+	v = []int{1, 2, 3}
+	fmt.Print(v)
 }
 
 const HTTP_SUCESS = 200
