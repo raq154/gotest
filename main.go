@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 var colors = map[string]string{
@@ -251,4 +252,29 @@ func doThis() error {
 
 func doThat() error {
 	return nil
+}
+
+type Server struct {
+	quit chan bool
+}
+
+func NewServer() *Server {
+	s := &Server{make(chan bool)}
+	go s.run()
+	return s
+}
+
+func (s *Server) run() {
+	for {
+		select {
+		case <-s.quit:
+			fmt.Println("finishing task")
+			time.Sleep(time.Second)
+			fmt.Println("task done")
+			s.quit <- true
+			return
+		case <-time.After(time.Second):
+			fmt.Println("running task")
+		}
+	}
 }
